@@ -101,6 +101,7 @@
     <Compile Include="infrastructure\logging\LogFactory.cs" />
     <Compile Include="infrastructure\logging\Logger.cs" />
     <Compile Include="Mail\LastBytesTracker.cs" />
+    <Compile Include="Mime\Base64Decoder.cs" />
     <Compile Include="Mime\EncodedWord.cs" />
     <Compile Include="Mime\EncodedWords.cs" />
     <Compile Include="Mime\MimeParserException.cs" />
@@ -172,13 +173,13 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>IF EXIST "D:\Sources\Dev3.7\Dependencies" (
-   COPY "$(TargetDir)sidePOP.dll" "D:\Sources\Dev3.7\Dependencies"
-   COPY "$(TargetDir)sidePOP.pdb" "D:\Sources\Dev3.7\Dependencies"
+    <PostBuildEvent>IF EXIST "D:\Sources\Dev3.8\Dependencies" (
+   COPY "$(TargetDir)sidePOP.dll" "D:\Sources\Dev3.8\Dependencies"
+   COPY "$(TargetDir)sidePOP.pdb" "D:\Sources\Dev3.8\Dependencies"
 )
-IF EXIST "D:\Sources\Dev3.7\Build" (
-   COPY "$(TargetDir)sidePOP.dll" "D:\Sources\Dev3.7\Build"
-   COPY "$(TargetDir)sidePOP.pdb" "D:\Sources\Dev3.7\Build"
+IF EXIST "D:\Sources\Dev3.8\Build" (
+   COPY "$(TargetDir)sidePOP.dll" "D:\Sources\Dev3.8\Build"
+   COPY "$(TargetDir)sidePOP.pdb" "D:\Sources\Dev3.8\Build"
 )</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
