@@ -5,11 +5,11 @@ using System.Text;
 
 namespace sidepop.Mime
 {
-    public class Base64Decoder
+    public class CustomBinarySixtyFourDecoder
     {
-        public static byte[] FromBase64String(string base64String)
+        public static byte[] FromBinaryString(string base64String)
         {
-            var decoder = new Base64Decoder(base64String.ToCharArray());
+            var decoder = new CustomBinarySixtyFourDecoder(base64String.ToCharArray());
             var decoded = decoder.GetDecoded();
             return decoded;
         }
@@ -18,7 +18,8 @@ namespace sidepop.Mime
         int length, length2, length3;
         int blockCount;
         int paddingCount;
-        public Base64Decoder(char[] input)
+
+        public CustomBinarySixtyFourDecoder(char[] input)
         {
             int temp = 0;
             source = input;
@@ -73,6 +74,7 @@ namespace sidepop.Mime
                 buffer2[x * 3 + 1] = b2;
                 buffer2[x * 3 + 2] = b3;
             }
+
             //remove paddings
             length3 = length2 - paddingCount;
             byte[] result = new byte[length3];
@@ -88,13 +90,14 @@ namespace sidepop.Mime
         private byte char2sixbit(char c)
         {
             char[] lookupTable = new char[64]
-          {  
+            {  
+              'A','B','C','D','E','F','G','H','I','J','K','L','M','N',
+              'O','P','Q','R','S','T','U','V','W','X','Y', 'Z',
+              'a','b','c','d','e','f','g','h','i','j','k','l','m','n',
+              'o','p','q','r','s','t','u','v','w','x','y','z',
+              '0','1','2','3','4','5','6','7','8','9','+','/'
+            };
 
-    'A','B','C','D','E','F','G','H','I','J','K','L','M','N',
-    'O','P','Q','R','S','T','U','V','W','X','Y', 'Z',
-    'a','b','c','d','e','f','g','h','i','j','k','l','m','n',
-    'o','p','q','r','s','t','u','v','w','x','y','z',
-    '0','1','2','3','4','5','6','7','8','9','+','/'};
             if (c == '=')
                 return 0;
             else

@@ -444,7 +444,7 @@ namespace sidepop.Mime
                 {
                      byte[] encodedBytes = lines.SelectMany(childEntityLine => childEntityLine).ToArray();
                      string encodedString = ConvertBytesToStringWithDefaultEncoding(encodedBytes);
-                     byte[] decodedBytes = Base64Decoder.FromBase64String(encodedString);
+                     byte[] decodedBytes = CustomBinarySixtyFourDecoder.FromBinaryString(encodedString);
                      return new Queue<byte[]>(SplitByteArrayWithCrLf(decodedBytes));
                 }
                 catch

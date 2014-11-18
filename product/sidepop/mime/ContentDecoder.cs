@@ -23,7 +23,7 @@ namespace sidepop.Mime
             switch (entity.ContentTransferEncoding)
             {
                 case TransferEncoding.Base64:
-                    byte[] decodedBytes = Base64Decoder.FromBase64String(Encoding.ASCII.GetString(entity.ContentBytes));
+                    byte[] decodedBytes = CustomBinarySixtyFourDecoder.FromBinaryString(Encoding.ASCII.GetString(entity.ContentBytes));
                     return decodedBytes;
 
                 case TransferEncoding.QuotedPrintable:
@@ -127,7 +127,7 @@ namespace sidepop.Mime
         private static string DecodeBase64(byte[][] content, string charSet)
         {
             byte[] allBytes = content.SelectMany(b => b).ToArray();
-            byte[] decodedBytes = Base64Decoder.FromBase64String(Encoding.ASCII.GetString(allBytes));
+            byte[] decodedBytes = CustomBinarySixtyFourDecoder.FromBinaryString(Encoding.ASCII.GetString(allBytes));
 
             if (charSet != null)
             {

@@ -139,8 +139,8 @@ namespace sidepop.Mime
             string encodedData;
             if (encodingType == "B")
             {
-                byte[] decodedData1 = Base64Decoder.FromBase64String(encodedData1);
-                byte[] decodedData2 = Base64Decoder.FromBase64String(encodedData2);
+                byte[] decodedData1 = CustomBinarySixtyFourDecoder.FromBinaryString(encodedData1);
+                byte[] decodedData2 = CustomBinarySixtyFourDecoder.FromBinaryString(encodedData2);
 
                 encodedData = Convert.ToBase64String(decodedData1.Concat(decodedData2).ToArray());
             }
