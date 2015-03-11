@@ -25,21 +25,29 @@ namespace sidepop.Mime
             source = input;
             length = input.Length;
 
-            //find how many padding are there
-            for (int x = 0; x < 2; x++)
+            if (length > 0)
             {
-                if (input[length - x - 1] == '=')
-                    temp++;
+                //find how many padding are there
+                for (int x = 0; x < 2; x++)
+                {
+                    if (input[length - x - 1] == '=')
+                        temp++;
+                }
+                paddingCount = temp;
+                //calculate the blockCount;
+                //assuming all whitespace and carriage returns/newline were removed.
+                blockCount = length / 4;
+                length2 = blockCount * 3;
             }
-            paddingCount = temp;
-            //calculate the blockCount;
-            //assuming all whitespace and carriage returns/newline were removed.
-            blockCount = length / 4;
-            length2 = blockCount * 3;
         }
 
         public byte[] GetDecoded()
         {
+            if (length == 0)
+            {
+                return new byte[0];
+            }
+
             byte[] buffer = new byte[length];//first conversion result
             byte[] buffer2 = new byte[length2];//decoded array with padding
 
