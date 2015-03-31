@@ -172,9 +172,12 @@ namespace sidepop.Mail.Commands
             {
                 Receive(callback);
 
-                _manualResetEvent.WaitOne();
+                if (_manualResetEvent.WaitOne(TimeSpan.FromMinutes(1)))
+                {
+                    return _responseContents.ToArray();
+                }
 
-                return _responseContents.ToArray();
+                throw new Pop3Exception("Unable to get response.", new TimeoutException("response timed out."));
             }
             catch (SocketException e)
             {
