@@ -8,11 +8,8 @@ using sidepop.Mail.Results;
 namespace sidepop.example.console
 {
     using System.Collections.Generic;
-    using Castle.Windsor;
-    using Castle.Windsor.Configuration.Interpreters;
     using configuration;
     using infrastructure;
-    using infrastructure.containers;
     using infrastructure.logging;
     using message.events;
     using runners;
@@ -24,9 +21,6 @@ namespace sidepop.example.console
         {
             try
             {
-                IWindsorContainer container = new WindsorContainer(new XmlInterpreter());
-                Container.initialize_with(new infrastructure.containers.custom.WindsorContainer(container));
-
                 //run_regular();
                 //run_with_runner();
                 run_with_configurator();

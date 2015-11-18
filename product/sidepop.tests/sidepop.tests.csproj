@@ -63,14 +63,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\bdddoc\bdddoc.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Castle\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Windsor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Castle\Castle.Windsor.dll</HintPath>
-    </Reference>
     <Reference Include="developwithpassion.bdd, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\developwithpassion.bdd\developwithpassion.bdd.dll</HintPath>
@@ -106,15 +98,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmptyTestContainer.cs" />
-    <Compile Include="infrastructure\containers\ContainerSpecs.cs" />
-    <Compile Include="infrastructure\containers\custom\WindsorContainerSpecs.cs" />
-    <Compile Include="infrastructure\extensions\IterationSpecs.cs" />
-    <Compile Include="infrastructure\extensions\StringExtensionsSpecs.cs" />
-    <Compile Include="infrastructure\extensions\TypeCastingSpecs.cs" />
-    <Compile Include="infrastructure\extensions\TypeExtensionsSpecs.cs" />
-    <Compile Include="infrastructure\logging\custom\Log4NetLogFactorySpecs.cs" />
-    <Compile Include="infrastructure\logging\custom\Log4NetLoggerSpecs.cs" />
-    <Compile Include="infrastructure\logging\LogSpecs.cs" />
     <Compile Include="Mime\ContentTypeSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

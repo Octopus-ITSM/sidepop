@@ -59,18 +59,6 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Castle\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Windsor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Castle\Castle.Windsor.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\log4net\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
@@ -84,9 +72,6 @@
     <Compile Include="configuration\AccountConfigurationElement.cs" />
     <Compile Include="configuration\SidePOPConfiguration.cs" />
     <Compile Include="infrastructure\ApplicationParameters.cs" />
-    <Compile Include="infrastructure\containers\Container.cs" />
-    <Compile Include="infrastructure\containers\custom\WindsorContainer.cs" />
-    <Compile Include="infrastructure\containers\InversionContainer.cs" />
     <Compile Include="infrastructure\extensions\Iteration.cs" />
     <Compile Include="infrastructure\extensions\StringExtensions.cs" />
     <Compile Include="infrastructure\extensions\TypeCasting.cs" />
