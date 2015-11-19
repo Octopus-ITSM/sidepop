@@ -172,7 +172,7 @@ namespace sidepop.Mail.Commands
             {
                 Receive(callback);
 
-                if (_manualResetEvent.WaitOne(TimeSpan.FromMinutes(1)))
+                if (_manualResetEvent.WaitOne(TimeSpan.FromMinutes(5)))
                 {
                     return _responseContents.ToArray();
                 }
@@ -250,6 +250,17 @@ namespace sidepop.Mail.Commands
             try
             {
                 bytesReceived = NetworkStream.EndRead(ar);
+
+                string message = WriteReceivedBytesToBuffer(bytesReceived);
+                if (message.EndsWith(MultilineMessageTerminator) || bytesReceived == 0)
+                //if the POP3 server times out we'll get an error message, then we'll get a following callback w/ 0 bytes.
+                {
+                    _manualResetEvent.Set();
+                }
+                else
+                {
+                    Receive(GetMultiLineResponseCallback);
+                }
             }
             catch (Exception ex)
             {
@@ -257,17 +268,6 @@ namespace sidepop.Mail.Commands
                 //todo: do we want to see how often this occurs?
                 Log.bound_to(this).log_an_error_event_containing("{0} encountered an error during multiline callback:{1}{2}", ApplicationParameters.name, Environment.NewLine, ex.ToString());
                 _manualResetEvent.Set();
-            }
-
-            string message = WriteReceivedBytesToBuffer(bytesReceived);
-            if (message.EndsWith(MultilineMessageTerminator) || bytesReceived == 0)
-            //if the POP3 server times out we'll get an error message, then we'll get a following callback w/ 0 bytes.
-            {
-                _manualResetEvent.Set();
-            }
-            else
-            {
-                Receive(GetMultiLineResponseCallback);
             }
         }
 
