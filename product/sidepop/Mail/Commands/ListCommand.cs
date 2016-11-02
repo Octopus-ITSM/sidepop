@@ -47,7 +47,7 @@ namespace sidepop.Mail.Commands
 
 			if (!IsMultiline)
 			{
-				requestMessage += _messageId.ToString();
+				requestMessage += " " + _messageId.ToString();
 			} // Append the message id to perform the LIST command for.
 
 			return GetRequestMessage(requestMessage, Pop3Commands.Crlf);

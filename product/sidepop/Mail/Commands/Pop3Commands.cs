@@ -27,9 +27,9 @@ namespace sidepop.Mail.Commands
 		public const string Dele = "DELE ";
 
 		/// <summary>
-		/// The LIST command followed by a space.
+		/// The LIST command.
 		/// </summary>
-		public const string List = "LIST ";
+		public const string List = "LIST";
 
 		/// <summary>
 		/// The NOOP command followed by a CRLF.
