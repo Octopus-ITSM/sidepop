@@ -162,7 +162,14 @@ namespace sidepop.Mime
                 if (line.StartsWith(" ") || line.StartsWith(Convert.ToString('\t')))
                 {
                     string headerNextLine = line;
-                    _entity.Headers[lastHeader] = string.Concat(_entity.Headers[lastHeader], headerNextLine);
+
+                    string lastHeaderValue = _entity.Headers[lastHeader];
+                    if (lastHeader.ToLower() == "content-type" && !lastHeaderValue.TrimEnd().EndsWith(";"))
+                    {
+                        lastHeaderValue += ";";
+                    }
+
+                    _entity.Headers[lastHeader] = string.Concat(lastHeaderValue, headerNextLine);
                     continue;
                 }
 
