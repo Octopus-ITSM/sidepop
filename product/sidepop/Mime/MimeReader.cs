@@ -164,7 +164,7 @@ namespace sidepop.Mime
                     string headerNextLine = line;
 
                     string lastHeaderValue = _entity.Headers[lastHeader];
-                    if (lastHeader.ToLower() == "content-type" && !lastHeaderValue.TrimEnd().EndsWith(";"))
+                    if (lastHeader.ToLower() == "content-type" && !lastHeaderValue.Contains(";"))
                     {
                         lastHeaderValue += ";";
                     }
