@@ -474,7 +474,15 @@ namespace sidepop.Mime
             ContentDisposition result;
             try
             {
-                result = new ContentDisposition(epuratedContentDisposition);
+                try
+                {
+                    result = new ContentDisposition(epuratedContentDisposition);
+                }
+                catch (FormatException)
+                {
+                    // sample: attachment; filename=Demande GRF-GRM
+                    result = new ContentDisposition(EnquoteValueIfNeeded(epuratedContentDisposition, "filename="));
+                }
             }
             catch
             {
@@ -582,6 +590,53 @@ namespace sidepop.Mime
             return result;
         }
 
+        public static string EnquoteValueIfNeeded(string value, string key)
+        {
+            if (!value.Contains(key))
+            {
+                return value;
+            }
+
+            int startKeyIndex = value.IndexOf(key);
+            int expressionStartIndex = startKeyIndex + key.Length;
+            int endKeyValueIndex = value.IndexOf(';', expressionStartIndex);
+
+            var expressionEndIndex = value.Length;
+            if (endKeyValueIndex > startKeyIndex)
+            {
+                expressionEndIndex = endKeyValueIndex;
+            }
+
+            if (expressionEndIndex <= expressionStartIndex)
+            {
+                return value;
+            }
+
+            var expression = value.Substring(expressionStartIndex, expressionEndIndex - expressionStartIndex).Trim();
+
+            var expressionModified = false;
+            if (!expression.StartsWith("\""))
+            {
+                expression = expression.Insert(0, "\"");
+                expressionModified = true;
+            }
+
+            if (!expression.EndsWith("\""))
+            {
+                expression += "\"";
+                expressionModified = true;
+            }
+
+            if (expressionModified)
+            {
+                value = value.Remove(expressionStartIndex, expressionEndIndex - expressionStartIndex);
+                value = value.Insert(expressionStartIndex, expression);
+                return value;
+            }
+
+            return value;
+        }
+
         /// <summary>
         /// Gets the type of the content.
         /// </summary>
@@ -599,7 +654,15 @@ namespace sidepop.Mime
 
             try
             {
-                return new ContentType(contentType);
+                try
+                {
+                    return new ContentType(contentType);
+                }
+                catch (FormatException)
+                {
+                    // sample: application/pdf; name=Demande GRF-GRM
+                    return new ContentType(EnquoteValueIfNeeded(contentType, "name="));
+                }
             }
             catch (Exception ex)
             {

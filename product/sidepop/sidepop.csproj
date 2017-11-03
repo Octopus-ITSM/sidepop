@@ -158,14 +158,14 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>SET Version=4.2
-IF EXIST "D:\Sources\Dev%25Version%25\Dependencies" (
-   COPY "$(TargetDir)sidePOP.dll" "D:\Sources\Dev%25Version%25\Dependencies"
-   COPY "$(TargetDir)sidePOP.pdb" "D:\Sources\Dev%25Version%25\Dependencies"
+    <PostBuildEvent>SET Folder=C:\Sources\Dev4.2tmp
+IF EXIST "%25Folder%25\Dependencies" (
+   COPY "$(TargetDir)sidePOP.dll" "%25Folder%25\Dependencies"
+   COPY "$(TargetDir)sidePOP.pdb" "%25Folder%25\Dependencies"
 )
-IF EXIST "D:\Sources\Dev%25Version%25\Build" (
-   COPY "$(TargetDir)sidePOP.dll" "D:\Sources\Dev%25Version%25\Build"
-   COPY "$(TargetDir)sidePOP.pdb" "D:\Sources\Dev%25Version%25\Build"
+IF EXIST "%25Folder%25\Build" (
+   COPY "$(TargetDir)sidePOP.dll" "%25Folder%25\Build"
+   COPY "$(TargetDir)sidePOP.pdb" "%25Folder%25\Build"
 )</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
