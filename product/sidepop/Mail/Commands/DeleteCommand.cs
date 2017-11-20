@@ -19,8 +19,9 @@ namespace sidepop.Mail.Commands
 		/// </summary>
 		/// <param name="stream">The stream.</param>
 		/// <param name="messageId">The message id.</param>
-		public DeleteCommand(Stream stream, int messageId)
-			: base(stream, false, Pop3State.Transaction)
+        /// <param name="timeout">Timeout in minutes for the command to execute.</param>
+        public DeleteCommand(Stream stream, int messageId, double timeout)
+            : base(stream, false, Pop3State.Transaction, timeout)
 		{
 			if (messageId < 0)
 			{

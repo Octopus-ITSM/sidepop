@@ -19,8 +19,9 @@ namespace sidepop.Mail.Commands
 		/// <param name="stream">The stream.</param>
 		/// <param name="messageNumber">The message number.</param>
 		/// <param name="lineCount">The line count.</param>
-		internal TopCommand(Stream stream, int messageNumber, int lineCount)
-			: base(stream, true, Pop3State.Transaction)
+        /// <param name="timeout">Timeout in minutes for the command to execute.</param>
+        internal TopCommand(Stream stream, int messageNumber, int lineCount, double timeout)
+            : base(stream, true, Pop3State.Transaction, timeout)
 		{
 			if (messageNumber < 1)
 			{

@@ -16,8 +16,9 @@ namespace sidepop.Mail.Commands
 		/// </summary>
 		/// <param name="stream">The stream.</param>
 		/// <param name="username">The username.</param>
-		public UserCommand(Stream stream, string username)
-			: base(stream, false, Pop3State.Authorization)
+        /// <param name="timeout">Timeout in minutes for the command to execute.</param>
+        public UserCommand(Stream stream, string username, double timeout)
+            : base(stream, false, Pop3State.Authorization, timeout)
 		{
 			if (string.IsNullOrEmpty(username))
 			{

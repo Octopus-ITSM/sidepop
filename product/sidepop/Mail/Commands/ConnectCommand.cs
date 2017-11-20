@@ -34,8 +34,9 @@ namespace sidepop.Mail.Commands
 		/// <param name="hostname">The hostname.</param>
 		/// <param name="port">The port.</param>
 		/// <param name="useSsl">if set to <c>true</c> [use SSL].</param>
-		public ConnectCommand(TcpClient client, string hostname, int port, bool useSsl)
-			: base(new MemoryStream(), false, Pop3State.Unknown)
+        /// <param name="timeout">Timeout in minutes for the command to execute.</param>
+		public ConnectCommand(TcpClient client, string hostname, int port, bool useSsl, double timeout)
+			: base(new MemoryStream(), false, Pop3State.Unknown, timeout)
 		{
 			if (client == null)
 			{

@@ -16,9 +16,10 @@ namespace sidepop.Mail.Commands
 		/// Initializes a new instance of the <see cref="RetrieveCommand"/> class.
 		/// </summary>
 		/// <param name="stream">The stream.</param>
-		/// <param name="message">The message.</param>
-		public RetrieveCommand(Stream stream, int message)
-			: base(stream, true, Pop3State.Transaction)
+        /// <param name="message">The message.</param>
+        /// <param name="timeout">Timeout in minutes for the command to execute.</param>
+		public RetrieveCommand(Stream stream, int message, double timeout)
+            : base(stream, true, Pop3State.Transaction, timeout)
 		{
 			if (message < 0)
 			{

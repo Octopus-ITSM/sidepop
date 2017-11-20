@@ -254,7 +254,7 @@ namespace sidepop.Mail
 
             SetState(Pop3State.Unknown);
             ConnectResponse response;
-            using (ConnectCommand command = new ConnectCommand(_client, Hostname, Port, UseSsl))
+            using (ConnectCommand command = new ConnectCommand(_client, Hostname, Port, UseSsl, Timeout))
             {
                 TraceCommand<ConnectCommand, ConnectResponse>(command);
                 response = command.Execute(CurrentState);
@@ -297,13 +297,13 @@ namespace sidepop.Mail
             //Connect();
 
             //execute the user command.
-            using (UserCommand userCommand = new UserCommand(_clientStream, Username))
+            using (UserCommand userCommand = new UserCommand(_clientStream, Username, Timeout))
             {
                 ExecuteCommand<Pop3Response, UserCommand>(userCommand);
             }
 
             //execute the pass command.
-            using (PassCommand passCommand = new PassCommand(_clientStream, Password))
+            using (PassCommand passCommand = new PassCommand(_clientStream, Password, Timeout))
             {
                 ExecuteCommand<Pop3Response, PassCommand>(passCommand);
             }
@@ -323,7 +323,7 @@ namespace sidepop.Mail
                 throw new ArgumentNullException("item");
             }
 
-            using (DeleteCommand command = new DeleteCommand(_clientStream, item.MessageId))
+            using (DeleteCommand command = new DeleteCommand(_clientStream, item.MessageId, Timeout))
             {
                 ExecuteCommand<Pop3Response, DeleteCommand>(command);
             }
@@ -335,7 +335,7 @@ namespace sidepop.Mail
         /// <exception cref="Pop3Exception">If the NOOP command was unable to be executed successfully.</exception>
         public void SendNoOperation()
         {
-            using (NoOperationCommand command = new NoOperationCommand(_clientStream))
+            using (NoOperationCommand command = new NoOperationCommand(_clientStream, Timeout))
             {
                 ExecuteCommand<Pop3Response, NoOperationCommand>(command);
             }
@@ -347,7 +347,7 @@ namespace sidepop.Mail
         /// <exception cref="Pop3Exception">If the RSET command was unable to be executed successfully.</exception>
         public void SendReset()
         {
-            using (ResetCommand command = new ResetCommand(_clientStream))
+            using (ResetCommand command = new ResetCommand(_clientStream, Timeout))
             {
                 ExecuteCommand<Pop3Response, ResetCommand>(command);
             }
@@ -361,7 +361,7 @@ namespace sidepop.Mail
         public StatisticsResult GetStatistics()
         {
             StatResponse response;
-            using (StatisticsCommand command = new StatisticsCommand(_clientStream))
+            using (StatisticsCommand command = new StatisticsCommand(_clientStream, Timeout))
             {
                 response = ExecuteCommand<StatResponse, StatisticsCommand>(command);
             }
@@ -377,7 +377,7 @@ namespace sidepop.Mail
         public List<Pop3ListItemResult> List()
         {
             ListResponse response;
-            using (ListCommand command = new ListCommand(_clientStream))
+            using (ListCommand command = new ListCommand(_clientStream, Timeout))
             {
                 response = ExecuteCommand<ListResponse, ListCommand>(command);
             }
@@ -418,7 +418,7 @@ namespace sidepop.Mail
             }
 
             RetrieveResponse response;
-            using (RetrieveCommand command = new RetrieveCommand(_clientStream, item.MessageId))
+            using (RetrieveCommand command = new RetrieveCommand(_clientStream, item.MessageId, Timeout))
             {
                 response = ExecuteCommand<RetrieveResponse, RetrieveCommand>(command);
             }
@@ -451,7 +451,7 @@ namespace sidepop.Mail
             }
 
             RetrieveResponse response;
-            using (TopCommand command = new TopCommand(_clientStream, messageId, lineCount))
+            using (TopCommand command = new TopCommand(_clientStream, messageId, lineCount, Timeout))
             {
                 response = ExecuteCommand<RetrieveResponse, TopCommand>(command);
             }
@@ -487,7 +487,7 @@ namespace sidepop.Mail
             {
                return;
             }
-            using (QuitCommand command = new QuitCommand(_clientStream))
+            using (QuitCommand command = new QuitCommand(_clientStream, Timeout))
             {
                 if (_client.Connected)
                 {

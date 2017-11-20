@@ -14,8 +14,8 @@ namespace sidepop.Mail.Commands
 		// the id of the message on the server to retrieve.
 		private readonly int _messageId;
 
-		public ListCommand(Stream stream)
-			: base(stream, true, Pop3State.Transaction)
+		public ListCommand(Stream stream, double timeout)
+            : base(stream, true, Pop3State.Transaction, timeout)
 		{
 		}
 
@@ -24,8 +24,9 @@ namespace sidepop.Mail.Commands
 		/// </summary>
 		/// <param name="stream">The stream.</param>
 		/// <param name="messageId">The message id.</param>
-		public ListCommand(Stream stream, int messageId)
-			: this(stream)
+        /// <param name="timeout">Timeout in minutes for the command to execute.</param>
+        public ListCommand(Stream stream, int messageId, double timeout)
+			: this(stream, timeout)
 		{
 			if (messageId < 0)
 			{

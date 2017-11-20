@@ -158,7 +158,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>SET Folder=C:\Sources\Dev4.2tmp
+    <PostBuildEvent>SET Folder=D:\Sources\Dev4.2
 IF EXIST "%25Folder%25\Dependencies" (
    COPY "$(TargetDir)sidePOP.dll" "%25Folder%25\Dependencies"
    COPY "$(TargetDir)sidePOP.pdb" "%25Folder%25\Dependencies"

@@ -14,8 +14,9 @@ namespace sidepop.Mail.Commands
 		/// Initializes a new instance of the <see cref="StatisticsCommand"/> class.
 		/// </summary>
 		/// <param name="stream">The stream.</param>
-		public StatisticsCommand(Stream stream)
-			: base(stream, false, Pop3State.Transaction)
+        /// <param name="timeout">Timeout in minutes for the command to execute.</param>
+        public StatisticsCommand(Stream stream, double timeout)
+			: base(stream, false, Pop3State.Transaction, timeout)
 		{
 		}
 

@@ -26,6 +26,7 @@ namespace sidepop.Mail.Commands
         private readonly ManualResetEvent _manualResetEvent;
         private readonly MemoryStream _responseContents;
         private LastBytesTracker _lastBytesTracker;
+        private double _timeout;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Pop3Command"/> class.
@@ -33,7 +34,8 @@ namespace sidepop.Mail.Commands
         /// <param name="stream">The stream.</param>
         /// <param name="isMultiline">if set to <c>true</c> [is multiline].</param>
         /// <param name="validExecuteState">State of the valid execute.</param>
-        public Pop3Command(Stream stream, bool isMultiline, Pop3State validExecuteState)
+        /// <param name="timeout">Timeout in minutes for the command to execute.</param>
+        public Pop3Command(Stream stream, bool isMultiline, Pop3State validExecuteState, double timeout)
         {
             if (stream == null)
             {
@@ -47,6 +49,7 @@ namespace sidepop.Mail.Commands
             NetworkStream = stream;
             IsMultiline = isMultiline;
             ValidExecuteState = validExecuteState;
+            _timeout = timeout;
         }
 
         public Pop3State ValidExecuteState { get; private set; }
@@ -172,12 +175,20 @@ namespace sidepop.Mail.Commands
             {
                 Receive(callback);
 
-                if (_manualResetEvent.WaitOne(TimeSpan.FromMinutes(5)))
+                if (_manualResetEvent.WaitOne(TimeSpan.FromMinutes(_timeout)))
                 {
                     return _responseContents.ToArray();
                 }
 
-                throw new Pop3Exception("Unable to get response.", new TimeoutException("response timed out."));
+                string currentContent = "Unable to determine current message content";
+
+                try
+                {
+                    currentContent = Encoding.ASCII.GetString(_responseContents.ToArray());
+                }
+                catch { /*Ignore exception during exception handling*/ }
+
+                throw new Pop3Exception("Unable to get response.", new TimeoutException("response timed out.", new Exception(string.Format("Current content: {0}", currentContent))));
             }
             catch (SocketException e)
             {
